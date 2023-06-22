@@ -1,0 +1,6 @@
+streamlit
+numpy
+tensorflow
+keras.utils
+cv2
+pip
