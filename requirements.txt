@@ -2,4 +2,5 @@ streamlit
 numpy
 tensorflow
 keras.utils
+opencv-python
 pip
