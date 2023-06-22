@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python App</title>
+</head>
+<body>
+    <form id="upload-gambar-1" method="POST" enctype="multipart/form-data">
+        <img src="#" alt="Gambar" id="gambar1">
+        <input type="file" name="gambar" onchange="fileSelected(this)">
+        <button type="button" id="upload">Upload</button>
+    </form>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
