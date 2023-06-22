@@ -3,7 +3,7 @@ import streamlit as st
 import numpy as np
 import tensorflow as tf
 import keras.utils as image
-from cv2 import cv2
+import cv2
 
 st.title("Prediksi Gambar")
 
@@ -80,7 +80,7 @@ if __name__ == '__main__':
             plt.yticks([])
             plt.imshow(digit.reshape(28, 28), cmap="gray")
             plt.title(pred,color='green',fontsize=18,fontweight="bold")
-            
+
         st.write("The Recognized Alphabets are : " ,*alphabets)
 
         # img = image.load_img(filename)
