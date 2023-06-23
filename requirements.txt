@@ -1,6 +1,5 @@
-streamlit
-numpy
 tensorflow
-keras.utils
+numpy
+keras.models
 opencv-python
-pip
+flask

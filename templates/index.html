@@ -1,18 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python App</title>
-</head>
-<body>
-    <form id="upload-gambar-1" method="POST" enctype="multipart/form-data">
-        <img src="#" alt="Gambar" id="gambar1">
-        <input type="file" name="gambar" onchange="fileSelected(this)">
-        <button type="button" id="upload">Upload</button>
-    </form>
+{% extends 'base.html' %}
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
-</body>
-</html>
+{% block title %} Home {% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title mb-0">Model Alfabet</h3>
+      </div>
+      <div class="card-body">
+        <form id="uploadForm">
+          <div class="mb-3">
+            <img src="https://placehold.co/600x400?text=Silakan+pilih+gambar" alt="Gambar Model 1" id="gambar1" class="img-thumbnail w-100">
+          </div>
+          <div class="custom-file mb-3">
+            <label for="image" class="custom-file-label">Pilih Gambar</label>
+            <input type="file" class="custom-file-input" id="image" name="image" onchange="gambar1Selected(this)">
+          </div>
+          <button type="button" id="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <div id="hasil" class="mt-3 h1 font-weight-bolder" style="display: none;"></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title mb-0">Model Digit</h3>
+      </div>
+      <div class="card-body">
+        <form id="uploadFormDigit">
+          <div class="mb-3">
+            <img src="https://placehold.co/600x400?text=Silakan+pilih+gambar" alt="Gambar Model 2" id="gambar2" class="img-thumbnail w-100">
+          </div>
+          <div class="custom-file mb-3">
+            <label for="image" class="custom-file-label">Pilih Gambar</label>
+            <input type="file" class="custom-file-input" id="image" name="image" onchange="gambar2Selected(this)">
+          </div>
+          <button type="button" id="submit-digit" class="btn btn-primary">Submit</button>
+        </form>
+        <div id="hasildigit" class="mt-3 h1 font-weight-bolder" style="display: none;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
