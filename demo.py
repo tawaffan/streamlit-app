@@ -138,7 +138,7 @@ def digit_recognize(filepath):
     i=1
     alphabets=[]
     for digit in preprocessed_digits:
-        [prediction] = model.predict(digit.reshape(1, 28, 28, 1)/255.)
+        [prediction] = model.predict(digit.reshape(1, 28, 28, 1))
         pred=alpha[np.argmax(prediction)]
         alphabets.append(pred)
         i+=1
