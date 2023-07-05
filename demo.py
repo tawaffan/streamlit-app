@@ -6,10 +6,17 @@ from flask import Flask, render_template, request, jsonify
 from random import randint
 from datetime import date
 
+import pytesseract
+from PIL import Image
+
 app = Flask(__name__)
 
 @app.route('/')
 def index():
+    return render_template("index2.html")
+
+@app.route('/')
+def index2():
     return render_template("index.html")
 
 @app.route('/predict', methods=["POST"])
@@ -20,6 +27,7 @@ def predict():
     uploadedFile.save(os.path.join('img', filename))
 
     path = './img/' + filename
+    # print(pytesseract.image_to_string(Image.open(path)))
     data = alphabet_recognize(path)
 
     return jsonify(success=1, data=data)
@@ -76,6 +84,7 @@ def alphabet_recognize(filepath):
     for digit in preprocessed_digits:
         [prediction] = model.predict(digit.reshape(1, 28, 28, 1)/255.)
         pred=alpha[np.argmax(prediction)]
+        print(np.argmax(prediction))
         alphabets.append(pred)
         i+=1
 
@@ -144,6 +153,40 @@ def digit_recognize(filepath):
         i+=1
 
     return alphabets
+
+@app.route('/prediction', methods=["POST"])
+def prediction():
+    uploadedFile = request.files['image']
+    filename = f'SWM-{randint(10,900)}-{date.today()}'
+    filename = f'{filename}-{uploadedFile.filename}'
+    uploadedFile.save(os.path.join('img', filename))
+
+    path = './img/' + filename
+
+    alphabets = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
+        "a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+
+    isHuruf = True
+    textOfImage = pytesseract.image_to_string(Image.open(path))
+    if len(textOfImage.strip()) > 0:
+        for elm in textOfImage.strip():
+            print(elm.isalpha())
+            if elm.isalpha() == False:
+                isHuruf = False
+                print('Bukan huruf')
+                break
+    else:
+        isHuruf = False
+
+    if isHuruf == True:
+        data = alphabet_recognize(path)
+    else:
+        data = digit_recognize(path)
+
+    # print(pytesseract.image_to_string(Image.open(path)))
+    # data = alphabet_recognize(path)
+
+    return jsonify(success=1, data=data)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")

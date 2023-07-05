@@ -27,6 +27,36 @@ $(function() {
     });
   });
 
+  $('#submitsatu').click(function() {
+    var $btn = $(this);
+    var form_data = new FormData($('#uploadForm')[0]);
+    $.ajax({
+      type: 'POST',
+      url: '/prediction',
+      data: form_data,
+      contentType: false,
+      processData: false,
+      beforeSend: function() {
+        $('#hasil').html('');
+        $('#hasil').show();
+        $btn.prop('disabled', true);
+        $btn.html(
+          `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`
+        );
+      },
+      complete: function() {
+        $btn.removeAttr('disabled');
+        $btn.html('Submit');
+      },
+      dataType: 'json'
+    }).done(function(res, textStatus, jqXHR) {
+      $('#hasil').show();
+      $('#hasil').html(res.data.join(' '));
+    }).fail(function(data) {
+      console.error(data);
+    });
+  });
+
   $('#submit-digit').click(function() {
     var $btn = $(this);
     var form_data = new FormData($('#uploadFormDigit')[0]);
